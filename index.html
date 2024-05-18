@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Parisienne&family=Great+Vibes&family=Satisfy&family=Sacramento&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: "https://automatic-rotary-phone-j45xq79747v3p6qv-8000.app.github.dev/",
+                type: "GET",
+                dataType: "json",
+                success: function(data){
+                    displayMenu(data);
+                },
+                error: function(xhr, status, error){
+                    console.error("Failed to fetch menu items:", error);
+                }
+            });
+
+            function displayMenu(menuItems){
+                var menuContainer = $("#menu-items");
+                menuItems.forEach(function(item) {
+                    var menuItem = $("<div class='menu-item'></div>");
+                    menuItem.append("<h2>" + item.item_name + "</h2>");
+                    menuItem.append("<p>" + item.description + "</p>");
+                    menuItem.append("<span>&#x20B9;" + item.price + "</span>");
+                    menuItem.append("<input type='number' min='1' value='1'>"); // Quantity selector
+                    menuItem.append("<button class='add-to-cart'>Add to Cart</button>");
+                    menuContainer.append(menuItem);
+                });
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Set background color */
+        }
+        .menu-item {
+            width: calc(33.33% - 20px); /* Set the width to one-third of the container width minus margin */
+            margin: 0 10px 20px; /* Adjust margins as needed */
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff; /* Set background color */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            float: left; /* Float the menu items to make them appear in a row */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+        .menu-item h2 {
+            color: #333; /* Set heading color */
+            font-family: "Satisfy";
+        }
+        .menu-item p {
+            color: #666; /* Set description color */
+            font-family: "Great Vibes";
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+        .menu-item span {
+            color: #ff6347; /* Set price color */
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .menu-item input[type='number'] {
+            width: 50px;
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .menu-item button.add-to-cart {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .menu-item button.add-to-cart:hover {
+            background-color: #45a049;
+        }
+        .banner {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+        .banner h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .banner img {
+            width: 100%;
+            height: 40vh;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1 style="font-family: 'Parisienne';">Delicious Restaurant</h1>
+        <img src="./banner.jpg" alt="Restaurant Image">
+        
+    </div>
+    <h2 style="text-align: center;">Menu</h2>
+    <div id="menu-items" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+</body>
+</html>
